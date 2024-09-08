@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Prediction UI</title>
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for additional styling -->
+    <style>
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #fff;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <h3 class="text-center">Credit Risk Prediction</h3>
+                <form id="creditForm">
+                    <!-- Attribute 1: Status of existing checking account -->
+                    <label>Status of existing checking account:</label><br>
+                    <select name="Status_Checking_Account">
+                      <option value="A11">... < 0 DM</option>
+                      <option value="A12">0 <= ... < 200 DM</option>
+                      <option value="A13">... >= 200 DM / salary assignments for at least 1 year</option>
+                      <option value="A14">No checking account</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 2: Duration in months -->
+                    <label>Duration in months:</label><br>
+                    <input type="number" name="Duration" min="0"><br><br>
+                  
+                    <!-- Attribute 3: Credit history -->
+                    <label>Credit history:</label><br>
+                    <select name="Credit_History">
+                      <option value="A30">No credits taken/all credits paid back duly</option>
+                      <option value="A31">All credits at this bank paid back duly</option>
+                      <option value="A32">Existing credits paid back duly till now</option>
+                      <option value="A33">Delay in paying off in the past</option>
+                      <option value="A34">Critical account/other credits existing (not at this bank)</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 4: Purpose -->
+                    <label>Purpose:</label><br>
+                    <select name="Purpose">
+                      <option value="A40">Car (new)</option>
+                      <option value="A41">Car (used)</option>
+                      <option value="A42">Furniture/equipment</option>
+                      <option value="A43">Radio/television</option>
+                      <option value="A44">Domestic appliances</option>
+                      <option value="A45">Repairs</option>
+                      <option value="A46">Education</option>
+                      <option value="A47">Vacation</option>
+                      <option value="A48">Retraining</option>
+                      <option value="A49">Business</option>
+                      <option value="A410">Others</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 5: Credit amount -->
+                    <label>Credit amount:</label><br>
+                    <input type="number" name="Credit_Amount" min="0"><br><br>
+                  
+                    <!-- Attribute 6: Savings account/bonds -->
+                    <label>Savings account/bonds:</label><br>
+                    <select name="Savings_Account">
+                      <option value="A61">... < 100 DM</option>
+                      <option value="A62">100 <= ... < 500 DM</option>
+                      <option value="A63">500 <= ... < 1000 DM</option>
+                      <option value="A64">... >= 1000 DM</option>
+                      <option value="A65">Unknown/no savings account</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 7: Present employment since -->
+                    <label>Present employment since:</label><br>
+                    <select name="Employment">
+                      <option value="A71">Unemployed</option>
+                      <option value="A72">... < 1 year</option>
+                      <option value="A73">1 <= ... < 4 years</option>
+                      <option value="A74">4 <= ... < 7 years</option>
+                      <option value="A75">... >= 7 years</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 8: Installment rate in percentage of disposable income -->
+                    <label>Installment rate in percentage of disposable income:</label><br>
+                    <input type="number" name="Installment_Rate" min="0"><br><br>
+                  
+                    <!-- Attribute 9: Personal status and sex -->
+                    <label>Personal status and sex:</label><br>
+                    <select name="Personal_Status_Sex">
+                      <option value="A91">Male: divorced/separated</option>
+                      <option value="A92">Female: divorced/separated/married</option>
+                      <option value="A93">Male: single</option>
+                      <option value="A94">Male: married/widowed</option>
+                      <option value="A95">Female: single</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 10: Other debtors/guarantors -->
+                    <label>Other debtors/guarantors:</label><br>
+                    <select name="Other_Debtors">
+                      <option value="A101">None</option>
+                      <option value="A102">Co-applicant</option>
+                      <option value="A103">Guarantor</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 11: Present residence since -->
+                    <label>Present residence since (in years):</label><br>
+                    <input type="number" name="Residence_Since" min="0"><br><br>
+                  
+                    <!-- Attribute 12: Property -->
+                    <label>Property:</label><br>
+                    <select name="Property">
+                      <option value="A121">Real estate</option>
+                      <option value="A122">Building society savings agreement/life insurance</option>
+                      <option value="A123">Car or other (not in attribute 6)</option>
+                      <option value="A124">Unknown/no property</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 13: Age in years -->
+                    <label>Age in years:</label><br>
+                    <input type="number" name="Age" min="0"><br><br>
+                  
+                    <!-- Attribute 14: Other installment plans -->
+                    <label>Other installment plans:</label><br>
+                    <select name="Other_Installment_Plans">
+                      <option value="A141">Bank</option>
+                      <option value="A142">Stores</option>
+                      <option value="A143">None</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 15: Housing -->
+                    <label>Housing:</label><br>
+                    <select name="Housing">
+                      <option value="A151">Rent</option>
+                      <option value="A152">Own</option>
+                      <option value="A153">For free</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 16: Number of existing credits at this bank -->
+                    <label>Number of existing credits at this bank:</label><br>
+                    <input type="number" name="Existing_Credits" min="0"><br><br>
+                  
+                    <!-- Attribute 17: Job -->
+                    <label>Job:</label><br>
+                    <select name="Job">
+                      <option value="A171">Unemployed/unskilled - non-resident</option>
+                      <option value="A172">Unskilled - resident</option>
+                      <option value="A173">Skilled employee/official</option>
+                      <option value="A174">Management/self-employed/highly qualified employee/officer</option>
+                    </select><br><br>
+                  
+                    <!-- Attribute 18: Number of people being liable to provide maintenance for -->
+                    <label>Number of people being liable to provide maintenance for:</label><br>
+                    <input type="number" name="Liable_People" min="0"><br><br>
+                  
+                    <!-- Attribute 19: Telephone -->
+                    <label>Telephone:</label><br>
+                    <input type="radio" name="Telephone" value="A191">None<br>
+                    <input type="radio" name="Telephone" value="A192">Yes, registered under the customer's name<br><br>
+                  
+                    <!-- Attribute 20: Foreign worker -->
+                    <label>Foreign worker:</label><br>
+                    <input type="radio" name="Foreign_Worker" value="A201">Yes<br>
+                    <input type="radio" name="Foreign_Worker" value="A202">No<br><br>
+                  
+                    <!-- Submit button -->
+                    <input type="submit" value="Submit">
+                  </form>                  
+                  
+                <div id="prediction-result" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- JavaScript to handle form submission -->
+<script>
+    $(document).ready(function () {
+        $('#creditForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Serialize form data to JSON format
+            var formData = {};
+            $(this).serializeArray().map(function (x) { formData[x.name] = x.value; });
+
+            // Send form data to the server
+            $.ajax({
+                url: '/predict',  // Ensure the URL matches the Flask server
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#prediction-result').html(
+                        `<h4>Prediction: ${response['Predicted Labels'] === 0 ? 'Good' : 'Bad'}</h4>
+                        <p>Probability: ${response['Predicted Probabilities'].toFixed(2)}</p>`
+                    );
+                },
+                error: function(xhr, status, error) {
+                    var errorMsg = xhr.responseJSON && xhr.responseJSON.error ? xhr.responseJSON.error : 'An error occurred';
+                    $('#prediction-result').html(`<p class="text-danger">Error: ${errorMsg}</p>`);
+                }
+            });
+        });
+    });
+</script>
+    
+    
+</body>
+</html>
+
